@@ -127,45 +127,77 @@ This might not work for TSX and JSX files as Jest doesn’t understand them out 
 
 ### Add a transformer for TSX/JSX
 
-### Use **Babel + Jest**
+Follow the steps, if you want to add a transformer in a Next.js 15 project having TypeScript and Turbopack.
 
-1. Install deps:
+### 1. Install dependencies
 
-   ```bash
-   npm install --save-dev babel-jest @babel/preset-env @babel/preset-react @babel/preset-typescript
-   ```
+```bash
+npm install --save-dev jest ts-jest @types/jest @testing-library/react @testing-library/jest-dom
+```
 
-2. Create a **`babel.config.js`** in your root:
+### 2. Create a Jest-specific tsconfig
 
-   ```jsx
-   module.exports = {
-     presets: [
-       ['@babel/preset-env', { targets: { node: 'current' } }],
-       ['@babel/preset-react', { runtime: 'automatic' }],
-       '@babel/preset-typescript',
-     ],
-   };
-   ```
+Since your main `tsconfig.json` is optimized for Next.js (with `"jsx": "preserve"` and `"moduleResolution": "bundler"`), we create a separate one for Jest.
 
-3. Update **`jest.config.ts`**:
+`tsconfig.test.json`
 
-   ```tsx
-   import type { Config } from 'jest';
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "noEmit": true
+  }
+}
+```
 
-   const config: Config = {
-     testEnvironment: 'jsdom',
-     transform: {
-       '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
-     },
-     moduleNameMapper: {
-       '^@/(.*)$': '<rootDir>/src/$1',
-       '^.+\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-     },
-     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-     testPathIgnorePatterns: ['/node_modules/', '/.next/'],
-   };
+### 3. Configure Jest with `ts-jest` transformer
 
-   export default config;
-   ```
+`jest.config.ts`
 
-Now Jest will correctly parse JSX/TSX.
+```tsx
+import type { Config } from 'jest';
+
+const config: Config = {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  transform: {
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.test.json', // point to your Jest tsconfig
+      },
+    ],
+  },
+  moduleNameMapper: {
+    '^.+\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+};
+
+export default config;
+```
+
+### 4. Setup RTL matchers
+
+`jest.setup.ts`
+
+```tsx
+import '@testing-library/jest-dom';
+```
+
+### 5. Clear cache & run tests
+
+```bash
+npx jest --clearCache
+npm test
+```
+
+### Practice
+
+- Component: [HelloUsername](./components/HelloUsername.tsx)
+- Test: [HelloUsername Test](./__tests__/HelloUsername.test.tsx)
