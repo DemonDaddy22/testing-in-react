@@ -1,9 +1,15 @@
 import type { Config } from 'jest';
 
 const config: Config = {
+  preset: 'ts-jest',
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.jest.json',
+      },
+    ],
   },
   moduleNameMapper: {
     // Handle CSS imports (if you use CSS modules or global CSS)
