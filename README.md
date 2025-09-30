@@ -8,3 +8,4 @@
 A course on testing in React generated using ChatGPT. This README shall act as content index, providing links to each individual module.
 
 - [Module 1](./src/Module1/)
+- [Module 2](./src/Module2/)
