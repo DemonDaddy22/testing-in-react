@@ -1,11 +1,11 @@
-import Inputs from '@/Module2/components/Inputs';
+import Module3 from '@/Module3/components/Module3';
 import styles from './page.module.css';
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Inputs />
+        <Module3 />
       </main>
     </div>
   );
