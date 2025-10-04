@@ -120,3 +120,8 @@ test('has initial uncontrolled value', () => {
 Controlled inputs require **state updates** → you test React’s behaviour.
 
 Uncontrolled inputs rely on the DOM → you test initial/default values.
+
+### Practice
+
+- Component: [Counter](./components/Counter.tsx)
+- Test: [Counter Test](./__tests__/Counter.test.tsx)
