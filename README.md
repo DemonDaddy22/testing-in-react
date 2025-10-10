@@ -10,3 +10,4 @@ A course on testing in React generated using ChatGPT. This README shall act as c
 - [Module 1](./src/Module1/)
 - [Module 2](./src/Module2/)
 - [Module 3](./src/Module3/)
+- [Module 4](./src/Module4/)
