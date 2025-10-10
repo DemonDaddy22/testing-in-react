@@ -1,11 +1,11 @@
-import Hello from './Module4/components/Hello';
+import Products from './Module4/components/Products';
 import styles from './page.module.css';
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Hello />
+        <Products />
       </main>
     </div>
   );

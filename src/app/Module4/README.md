@@ -179,3 +179,8 @@ test('shows error message', async () => {
 - ❌ Not mocking `fetch` or `axios` before import.
 - ❌ Missing `act()` around async updates in older React versions.
 - ❌ Testing internal implementation instead of user-visible behaviour.
+
+### Practice
+
+- Component: [Products](./components/Products.tsx)
+- Test: [Products Test](./__tests__/Products.test.tsx)
