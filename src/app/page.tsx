@@ -1,11 +1,11 @@
-import Counter from '@/Module3/components/Counter';
+import Hello from './Module4/components/Hello';
 import styles from './page.module.css';
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Counter />
+        <Hello />
       </main>
     </div>
   );
